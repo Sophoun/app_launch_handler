@@ -1,6 +1,6 @@
 name: app_luanch_handler
 description: "App Luanch Handler that help user easy handle call back via app scheme"
-version: 0.0.2
+version: 0.0.3
 homepage: "https://sophoun.com"
 
 environment:
