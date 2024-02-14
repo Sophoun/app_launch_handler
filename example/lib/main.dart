@@ -21,16 +21,18 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    applauncher = AppLuanchHandler(onResult: (result) {
-      _result.value = result;
-      if (kDebugMode) {
-        print("TAG main.dart $result");
-      }
-    });
+    applauncher = AppLuanchHandler(
+        applyStatusFilter: true,
+        onResult: (result) {
+          _result.value = result;
+          if (kDebugMode) {
+            print("TAG main.dart $result");
+          }
+        });
   }
 
   void launchApp() {
-    const token = "1683113085331800064";
+    const token = "1683133610980507650";
     applauncher.launch(
         "https://link-uat.princebank.com.kh/sdk?orderNo=$token&appPkg=Y29tLnNvcGhvdW4uYXBwX2x1YW5jaF9oYW5kbGVyX2V4YW1wbGU=&scheme=bXlhcHA=");
   }
@@ -49,7 +51,9 @@ class _MyAppState extends State<MyApp> {
               ValueListenableBuilder<String>(
                 valueListenable: _result,
                 builder: (context, value, child) {
-                  return Text(value);
+                  return Text(
+                    value == "0" ? "$value= Success" : "$value= Failed",
+                  );
                 },
               ),
               ElevatedButton(
