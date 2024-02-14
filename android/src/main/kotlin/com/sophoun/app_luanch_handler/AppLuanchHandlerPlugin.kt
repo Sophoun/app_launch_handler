@@ -15,15 +15,20 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.Dispatchers
+import io.flutter.plugin.common.PluginRegistry.NewIntentListener
+import android.content.Intent
+import android.app.Activity
 
 /** AppLuanchHandlerPlugin */
-class AppLuanchHandlerPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
+class AppLuanchHandlerPlugin: FlutterPlugin, MethodCallHandler, ActivityAware, NewIntentListener {
   /// The MethodChannel that will the communication between Flutter and native Android
   ///
   /// This local reference serves to register the plugin with the Flutter Engine and unregister it
   /// when the Flutter Engine is detached from the Activity
   private lateinit var channel : MethodChannel
-
+  private var flutterBinding: ActivityPluginBinding? = null
+  private var activity: Activity? = null
+  
   override fun onAttachedToEngine(flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
     channel = MethodChannel(flutterPluginBinding.binaryMessenger, "com.sophoun.app_luanch_handler")
     channel.setMethodCallHandler(this)
@@ -39,7 +44,10 @@ class AppLuanchHandlerPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
 
   override fun onAttachedToActivity(binding: ActivityPluginBinding) {
     Log.d("TAG", "onAttachedToActivity: ${binding.activity.intent.data}")
-    channel.invokeMethod("launchWithResult", binding.activity.intent.data.toString())
+    flutterBinding = binding
+    activity = binding.activity
+    binding.addOnNewIntentListener(this)
+    binding.activity.intent?.let { onNewIntent(it) }
   }
 
   override fun onDetachedFromActivityForConfigChanges() {
@@ -47,11 +55,21 @@ class AppLuanchHandlerPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
   }
 
   override fun onReattachedToActivityForConfigChanges(binding: ActivityPluginBinding) {
-    onAttachedToActivity(binding)
     Log.d("TAG", "onReattachedToActivityForConfigChanges: ")
+    onAttachedToActivity(binding)
   }
 
   override fun onDetachedFromActivity() {
     Log.d("TAG", "onDetachedFromActivity: ")
+    flutterBinding?.removeOnNewIntentListener(this)
+    flutterBinding = null
+    activity = null
+  }
+
+  override fun onNewIntent(intent: Intent): Boolean {
+    Log.d("TAG", "onNewIntent: ${intent.data}")
+    if(intent.data == null) return false
+    channel.invokeMethod("launchWithResult", intent.data.toString())
+    return true
   }
 }
