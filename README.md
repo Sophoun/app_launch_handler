@@ -33,9 +33,12 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     // Register handler
-    applauncher = AppLuanchHandler(onResult: (result) {
-      _result.value = result;
-    });
+    applauncher = AppLuanchHandler(
+      onResult: (result) {
+        _result.value = result;
+      },
+      applyStatusFilter: false, // NOTE!!! If this true, it will return only status code. If your url does not have status code, it will throw an error. Default is false. Please read the doc for more detail.
+    );
   }
 
   @override
