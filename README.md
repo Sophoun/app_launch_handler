@@ -80,3 +80,41 @@ class _MyAppState extends State<MyApp> {
   }
 }
 ```
+
+## Handle scheme
+
+If your app need to be hancle result back from external app, don't forget to add your scheme to `AndroidManifest.xml` and `Info.plist`.
+
+### Android
+
+Inside your `AndroidManifest.xml` add this:
+in your `<activity>` tag:
+
+```xml
+<intent-filter>
+  <action android:name="android.intent.action.VIEW" />
+  <category android:name="android.intent.category.DEFAULT" />
+  <category android:name="android.intent.category.BROWSABLE" />
+  <data android:scheme="your_scheme" />
+</intent-filter>
+```
+
+### iOS
+
+Inside your `Info.plist` add this:
+
+```xml
+<key>CFBundleURLTypes</key>
+ <array>
+  <dict>
+   <key>CFBundleURLSchemes</key>
+   <array>
+    <string>your_scheme</string>
+   </array>
+  </dict>
+ </array>
+```
+
+## License
+
+This plugin is released under the MIT license.

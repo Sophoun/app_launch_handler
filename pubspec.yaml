@@ -1,6 +1,6 @@
 name: app_luanch_handler
-description: "A new Flutter plugin project."
-version: 0.0.1
+description: "App Luanch Handler that help user easy handle call back via app scheme"
+version: 0.0.2
 homepage: "https://sophoun.com"
 
 environment:
