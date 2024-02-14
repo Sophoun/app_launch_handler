@@ -30,7 +30,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   void launchApp() {
-    const token = "1683034053638586368";
+    const token = "1683113085331800064";
     applauncher.launch(
         "https://link-uat.princebank.com.kh/sdk?orderNo=$token&appPkg=Y29tLnNvcGhvdW4uYXBwX2x1YW5jaF9oYW5kbGVyX2V4YW1wbGU=&scheme=bXlhcHA=");
   }

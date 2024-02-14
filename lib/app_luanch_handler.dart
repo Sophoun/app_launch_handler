@@ -29,6 +29,9 @@ class AppLuanchHandler {
       throw Exception("Invalid url");
     }
     // Open external app
-    launchUrl(uri);
+    launchUrl(
+      uri,
+      mode: LaunchMode.externalApplication,
+    );
   }
 }
