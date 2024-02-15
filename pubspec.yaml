@@ -1,6 +1,6 @@
 name: app_luanch_handler
 description: "App Luanch Handler that help user easy handle call back via app scheme"
-version: 0.0.3
+version: 0.0.4
 homepage: "https://sophoun.com"
 repository: "https://github.com/Sophoun/app_launch_handler"
 

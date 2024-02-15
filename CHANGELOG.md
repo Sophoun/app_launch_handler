@@ -1,3 +1,7 @@
+## 0.0.4
+
+* Add repo link
+
 ## 0.0.3
 
 * Add a `StatusFilter` class for specific use case.
