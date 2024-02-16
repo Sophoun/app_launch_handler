@@ -6,7 +6,9 @@ class StatusFilter {
       throw Exception("No url found");
     }
     // Parse URL
-    final uri = Uri.tryParse(url);
+    final urlToParse =
+        url.replaceRange(0, url.indexOf("://"), "").replaceAll("://", "");
+    final uri = Uri.tryParse(urlToParse);
     if (uri == null) {
       throw Exception('Invalid url: $url');
     }

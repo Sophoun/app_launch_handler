@@ -1,3 +1,7 @@
+## 0.0.5
+
+* Fix bug for scheme filtering.
+
 ## 0.0.4
 
 * Add repo link
